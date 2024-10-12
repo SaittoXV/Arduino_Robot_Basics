@@ -31,44 +31,45 @@ void setup()
 
 void loop()
 {
-  int detect_far_left = analogRead(far_Left_Sensor);
-  int detect_left = analogRead(left_Sensor);
-  int detect_middle = analogRead(middle_Sensor);
-  int detect_right = analogRead(right_Sensor);
-  int detect_far_right = analogRead(far_Right_Sensor);
+  int detect_far_left = digitalRead(far_Left_Sensor);
+  int detect_left = digitalRead(left_Sensor);
+  int detect_middle = digitalRead(middle_Sensor);
+  int detect_right = digitalRead(right_Sensor);
+  int detect_far_right = digitalRead(far_Right_Sensor);
   
-  if (detect_far_left == LOW && detect_left == LOW && detect_middle == LOW && detect_right == LOW && detect_far_right == LOW)
+ if (detect_far_left == HIGH && detect_left == HIGH && detect_middle == HIGH && detect_right == HIGH && detect_far_right == HIGH)
   {
     Serial.println("Stop");
+    forward(100, 100);
   }
-  else if (detect_far_left != LOW && detect_left != LOW && detect_middle != LOW && detect_right != LOW && detect_far_right != LOW)
-  {
-    Serial.println("Stop");
-  }
-  else if (detect_left == LOW && detect_middle == LOW && detect_right == LOW)
-  {
-    Serial.println("Forward");
-  }
-  else if(detect_right == LOW && detect_far_right == LOW)
+  else if((detect_right == HIGH && detect_far_right == HIGH) || detect_far_right == HIGH)
   {
     Serial.println("Right");
+    right(50,200);
+    delay(100);
   }
-  else if(detect_far_left == LOW && detect_left == LOW)
+  else if((detect_far_left == HIGH && detect_left == HIGH) || detect_far_left == HIGH )
   {
     Serial.println("Left");
+    left(200,50);
+    delay(100);
   }
-  else if(detect_far_right == LOW)
+  else if(detect_far_right == HIGH || (detect_right == HIGH && detect_middle == HIGH))
   {
     Serial.println("Small Right");
+    right(50,100);
   }
-  else if(detect_far_left == LOW)
+  else if(detect_far_left == HIGH || (detect_left == HIGH && detect_middle == HIGH))
   {
     Serial.println("Small Left");
+    left(100,50);
   }
-  else
+  else if(detect_left == LOW && detect_middle == HIGH && detect_right == LOW)
   {
-    Serial.println("Stop");
+    Serial.println("Forward");
+    forward(100, 100);
   }
+
 
 }
 
