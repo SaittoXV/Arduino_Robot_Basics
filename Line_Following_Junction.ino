@@ -34,6 +34,7 @@ void setup()
 
 void loop()
 {
+  
   int detect_far_left = digitalRead(far_Left_Sensor);
   int detect_left = digitalRead(left_Sensor);
   int detect_middle = digitalRead(middle_Sensor);
@@ -44,40 +45,42 @@ void loop()
  if (detect_far_left == HIGH && detect_left == HIGH && detect_middle == HIGH && detect_right == HIGH && detect_far_right == HIGH)
   {
     Serial.println("Junction");
-    junction_Count = junction_Count++;
+    junction_Count = junction_Count+1;
     junction(junction_Count);
-  }
-    //Forward
-  else if(detect_left == LOW && detect_middle == HIGH && detect_right == LOW)
-  {
-    Serial.println("Forward");
-    forward(100, 100);
   }
   //Right
   else if((detect_right == HIGH && detect_far_right == HIGH) || detect_far_right == HIGH)
   {
     Serial.println("Right");
-    right(50,100);
+    right(40,120);
     delay(100);
   }
   //Small Right
-  else if(detect_far_right == HIGH || (detect_right == HIGH && detect_middle == HIGH))
+  else if(detect_right == HIGH && detect_middle == HIGH)
   {
     Serial.println("Small Right");
     right(50,100);
+    delay(50);
   }
   //Left
   else if((detect_far_left == HIGH && detect_left == HIGH) || detect_far_left == HIGH )
   {
     Serial.println("Left");
-    left(100,50);
+    left(120,40);
     delay(100);
   }
   //Small Left
-  else if(detect_far_left == HIGH || (detect_left == HIGH && detect_middle == HIGH))
+  else if(detect_left == HIGH && detect_middle == HIGH)
   {
     Serial.println("Small Left");
     left(100,50);
+    delay(50);
+  }
+  //Forward
+  else if(detect_middle == HIGH)
+  {
+    Serial.println("Forward");
+    forward(100, 100);
   }
 
 
@@ -141,21 +144,23 @@ void stop()
 }
 
 void junction(int junction_Count)
-{
-
-  Serial.println("Junction Counter: " + junction_Count);
+{ 
+  Serial.println(junction_Count);
   switch (junction_Count)
   {
     case 0:
+     Serial.println("This is Junction Zero");
      forward(100, 100); 
      break;
     case 1:
+     Serial.println("This is Junction One");
      forward(100, 100);
      break;
     case 2:
      forward(100, 100);
      break;
     default:
+     Serial.println("Default");
      forward(100, 100);
      break;
   }
