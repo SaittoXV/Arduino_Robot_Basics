@@ -46,6 +46,10 @@ void loop()
   {
     Serial.println("Junction");
     junction_Count = junction_Count+1;
+    forward(100,100);
+    delay(100);
+    stop();
+    delay(100);
     junction(junction_Count);
   }
   //Right
@@ -66,7 +70,7 @@ void loop()
   else if((detect_far_left == HIGH && detect_left == HIGH) || detect_far_left == HIGH )
   {
     Serial.println("Left");
-    left(120,40);
+    left(120,0);
     delay(100);
   }
   //Small Left
@@ -171,15 +175,25 @@ void junction(int junction_Count)
   switch (junction_Count)
   {
     case 1:
-     Serial.println("This is Junction One");
+     Serial.println("Junction: 1");
      forward(100, 100);
      break;
     case 2:
-     forward(100, 100);
+     Serial.println("Junction: 2");
+     turn_Left(100);
+     delay(1000);
+     break;
+    case 3:
+     Serial.println("Junction: 3");
+     turn_Right(100);
+     delay(1000);
+     break;
+    case 4:
+     Serial.println("Junction: 4");
+     forward(100,100);
      break;
     default:
-     Serial.println("Default");
-     forward(100, 100);
-     break;
+     Serial.println("Default: Stop");
+     stop();
   }
 }
