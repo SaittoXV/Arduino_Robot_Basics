@@ -119,6 +119,17 @@ void right(int speed_Right, int speed_Left)
   analogWrite(left_Motor_Speed,speed_Left);
 }
 
+void turn_Right(int speed_Left)
+{
+  //Right Motor
+  digitalWrite(right_Motor_Direction,LOW);
+  analogWrite(right_Motor_Speed,0);
+  
+  //Left Motor
+  digitalWrite(left_Motor_Direction,LOW);
+  analogWrite(left_Motor_Speed,speed_Left);
+}
+
 void left(int speed_Right, int speed_Left)
 {
   //Right Motor
@@ -129,6 +140,17 @@ void left(int speed_Right, int speed_Left)
   digitalWrite(left_Motor_Direction,LOW);
   analogWrite(left_Motor_Speed,speed_Left);
   
+}
+
+void turn_Left(int speed_Right)
+{
+  //Right Motor
+  digitalWrite(right_Motor_Direction,LOW);
+  analogWrite(right_Motor_Speed,speed_Right);
+  
+  //Left Motor
+  digitalWrite(left_Motor_Direction,LOW);
+  analogWrite(left_Motor_Speed,0);
 }
 
 void stop()
@@ -148,10 +170,6 @@ void junction(int junction_Count)
   Serial.println(junction_Count);
   switch (junction_Count)
   {
-    case 0:
-     Serial.println("This is Junction Zero");
-     forward(100, 100); 
-     break;
     case 1:
      Serial.println("This is Junction One");
      forward(100, 100);
