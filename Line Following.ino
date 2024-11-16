@@ -31,6 +31,7 @@ void setup()
 
 void loop()
 {
+  
   int detect_far_left = digitalRead(far_Left_Sensor);
   int detect_left = digitalRead(left_Sensor);
   int detect_middle = digitalRead(middle_Sensor);
@@ -40,40 +41,42 @@ void loop()
   //Junction
  if (detect_far_left == HIGH && detect_left == HIGH && detect_middle == HIGH && detect_right == HIGH && detect_far_right == HIGH)
   {
-    Serial.println("Stop");
-    forward(100, 100);
-  }
-    //Forward
-  else if(detect_left == LOW && detect_middle == HIGH && detect_right == LOW)
-  {
-    Serial.println("Forward");
+    Serial.println("Junction");
     forward(100, 100);
   }
   //Right
   else if((detect_right == HIGH && detect_far_right == HIGH) || detect_far_right == HIGH)
   {
     Serial.println("Right");
-    right(50,100);
+    right(40,120);
     delay(100);
   }
   //Small Right
-  else if(detect_far_right == HIGH || (detect_right == HIGH && detect_middle == HIGH))
+  else if(detect_right == HIGH && detect_middle == HIGH)
   {
     Serial.println("Small Right");
     right(50,100);
+    delay(50);
   }
   //Left
   else if((detect_far_left == HIGH && detect_left == HIGH) || detect_far_left == HIGH )
   {
     Serial.println("Left");
-    left(100,50);
+    left(120,40);
     delay(100);
   }
   //Small Left
-  else if(detect_far_left == HIGH || (detect_left == HIGH && detect_middle == HIGH))
+  else if(detect_left == HIGH && detect_middle == HIGH)
   {
     Serial.println("Small Left");
     left(100,50);
+    delay(50);
+  }
+  //Forward
+  else if(detect_middle == HIGH)
+  {
+    Serial.println("Forward");
+    forward(100, 100);
   }
 
 
