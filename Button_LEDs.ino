@@ -2,7 +2,6 @@ const int red_led = 2;
 const int yellow_led = 3;
 const int green_led = 4;
 const int button = 8;
-const int my_list[] = {red_led,yellow_led,green_led};
 int current_led = red_led;
 
 void setup() 
