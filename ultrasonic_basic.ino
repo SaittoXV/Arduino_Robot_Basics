@@ -100,3 +100,39 @@ void loop() {
   Serial.println("cm");
   delay(100);
 }
+
+/---------------------------------------------
+  const int trigPin = 10;
+const int echoPin = 9;
+const int buzzerPin = 11;
+float duration, distance;
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(buzzerPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  duration = pulseIn(echoPin, HIGH);
+  distance = (duration*.0343)/2;
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println("cm");
+
+  if(distance < 20){
+    digitalWrite(buzzerPin, HIGH);
+    delay(500);
+    digitalWrite(buzzerPin, LOW);
+    delay(500);
+  }
+
+  delay(100);
+}
