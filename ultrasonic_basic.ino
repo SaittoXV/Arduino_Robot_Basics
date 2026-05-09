@@ -127,11 +127,11 @@ void loop() {
   Serial.print(distance);
   Serial.println("cm");
 
-  if(distance < 20){
+  if(distance < 15){
     digitalWrite(buzzerPin, HIGH);
-    delay(500);
+    delay(100);
     digitalWrite(buzzerPin, LOW);
-    delay(500);
+    delay(100);
   }
 
   delay(100);
