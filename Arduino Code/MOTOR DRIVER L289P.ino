@@ -54,7 +54,7 @@ void loop()
 
     //Reverse the robot
     digitalWrite(M1,LOW);
-    analogWRite(E1, 100);
+    analogWrite(E1, 100);
 
     digitalWrite(M2, LOW);
     analogWrite(E2, 100);
@@ -62,7 +62,7 @@ void loop()
   else
   {
     digitalWrite(M1,HIGH);
-    analogWRite(E1, 100);
+    analogWrite(E1, 100);
 
     digitalWrite(M2, HIGH);
     analogWrite(E2, 100);
