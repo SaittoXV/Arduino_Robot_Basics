@@ -9,6 +9,7 @@ const int M2 = 13;
 
 //------------Set Distance Number-------------
 const int distanceDetect = 20;
+const int motorSpeed = 150;
 float duration, distance;
 
 void setup() 
@@ -69,20 +70,19 @@ void buzzer_beep()
 
 void move_backward()
 {
-    analogWrite(E1, 100);
+    analogWrite(E1, motorSpeed);
     digitalWrite(M1, LOW);
-    analogWrite(E2, 100);
+    analogWrite(E2, motorSpeed);
     digitalWrite(M2, LOW);
     delay(1000);
 }
 
 void move_forward()
 {
-    analogWrite(E1, 100);
+    analogWrite(E1, motorSpeed);
     digitalWrite(M1, HIGH);
-    analogWrite(E2, 100);
+    analogWrite(E2, motorSpeed);
     digitalWrite(M2, HIGH);
-    delay(100);
 }
 
 void turn_right()
