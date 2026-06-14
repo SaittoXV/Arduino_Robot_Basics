@@ -93,9 +93,9 @@ void move_forward()
 void turn_right()
 {
     analogWrite(E1, 100);
-    digitalWrite(M1, HIGH);
+    digitalWrite(M1, ___);
     analogWrite(E2, 100);
-    digitalWrite(M2, LOW);
+    digitalWrite(M2, ___);
 
     //[------------Insert a code below-------------]
 
