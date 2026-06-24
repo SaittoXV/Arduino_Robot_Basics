@@ -22,8 +22,8 @@ const int E2 = 11; //RIGHT MOTOR
 const int M2 = 13;
 
 //------------Set Distance Number-------------
-const int distanceDetect = 20;
-const int motorSpeed = 150;
+const int distanceDetect = 17;
+const int motorSpeed = 120;
 int objectDetect = 0;
 float duration, distance;
 
@@ -65,24 +65,27 @@ void loop()
   //------------Check Distance-------------
   if(distance < distanceDetect)
   {
-    objectDetect =++;
-    buzzer_beep();
+    objectDetect++;
     if(objectDetect == 1)
     {
+      buzzer_beep();
       turn_right();
     }
     else if(objectDetect == 2)
     {
+      buzzer_beep();
       turn_left();
     }
     else
     {
+      buzzer_beep();
       stop_brake();
     }
   }
   else
   {
     move_forward();
+    delay(100);
   }
 
 }
@@ -136,6 +139,5 @@ void stop_brake()
     digitalWrite(M1, LOW);
     analogWrite(E2, 0);
     digitalWrite(M2, HIGH);
-    delay(250);
+    delay(1000);
 }
-
