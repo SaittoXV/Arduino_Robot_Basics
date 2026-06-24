@@ -8,7 +8,7 @@ void second() {
     printf("This is Second\n");
 }
 
-void (*actions[])() = { first, second };
+void (*actions[])() = { second, second };
 const int action_count = sizeof(actions) / sizeof(actions[0]);
 
 int main(void) {
