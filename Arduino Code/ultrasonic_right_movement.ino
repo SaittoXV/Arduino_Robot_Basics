@@ -1,3 +1,17 @@
+//------------Challenge Map Route-------------
+/*
+     ________
+             |
+Start +----> |
+___     +    |
+   |    |    | 
+   |    |    |________________
+   |    ↓                     |
+   |         +-------->  End  |
+   |__________________________|
+
+*/
+
 //------------Set Arduino Pin Number-------------
 const int trigPin = 8;
 const int echoPin = 7;
@@ -9,7 +23,8 @@ const int M2 = 13;
 
 //------------Set Distance Number-------------
 const int distanceDetect = 17;
-const int motorSpeed = 150;
+const int motorSpeed = 120;
+int objectDetect = 0;
 float duration, distance;
 
 void setup() 
@@ -50,16 +65,28 @@ void loop()
   //------------Check Distance-------------
   if(distance < distanceDetect)
   {
-    buzzer_beep();
-    move_backward();
-    turn_right();
+    objectDetect++;
+    if(objectDetect == 1)
+    {
+      buzzer_beep();
+      turn_right();
+    }
+    else if(objectDetect == 2)
+    {
+      buzzer_beep();
+      turn_left();
+    }
+    else
+    {
+      buzzer_beep();
+      stop_brake();
+    }
   }
   else
   {
     move_forward();
+    delay(100);
   }
-
-  delay(100);
 
 }
 
@@ -95,4 +122,22 @@ void turn_right()
     analogWrite(E2, 100);
     digitalWrite(M2, LOW);
     delay(250);
+}
+
+void turn_left()
+{
+    analogWrite(E1, 100);
+    digitalWrite(M1, LOW);
+    analogWrite(E2, 100);
+    digitalWrite(M2, HIGH);
+    delay(250);
+}
+
+void stop_brake()
+{
+    analogWrite(E1, 0);
+    digitalWrite(M1, LOW);
+    analogWrite(E2, 0);
+    digitalWrite(M2, HIGH);
+    delay(1000);
 }

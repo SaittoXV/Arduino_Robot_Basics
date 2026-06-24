@@ -1,3 +1,6 @@
+//Code Description: 
+//Program the robot to continuously switch between right and left movements each time it encounters an object ahead.
+
 //------------Set Arduino Pin Number-------------
 const int trigPin = 8;
 const int echoPin = 7;
@@ -61,6 +64,7 @@ void loop()
   else
   {
     move_forward();
+    delay(100);
   }
 
 }
