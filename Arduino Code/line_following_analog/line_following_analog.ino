@@ -70,10 +70,13 @@ void turn_right()
 
 void turn_right_junction()
 {
-    analogWrite(E1, 150);
-    digitalWrite(M1, HIGH);
-    analogWrite(E2, 150);
-    digitalWrite(M2, LOW);
+  turn_right();
+  delay(250);
+
+  while (digitalRead(CS) == LOW)
+  {
+    turn_right();
+  }
 }
 
 void turn_left()
@@ -86,10 +89,13 @@ void turn_left()
 
 void turn_left_junction()
 {
-    analogWrite(E1, 150);
-    digitalWrite(M1, LOW);
-    analogWrite(E2, 150);
-    digitalWrite(M2, HIGH);
+  turn_left();
+  delay(250);
+
+  while (digitalRead(CS) == LOW)
+  {
+    turn_left();
+  }
 }
 
 void stop_brake()
@@ -97,7 +103,7 @@ void stop_brake()
     analogWrite(E1, 0);
     digitalWrite(M1, LOW);
     analogWrite(E2, 0);
-    digitalWrite(M2, HIGH);
+    digitalWrite(M2, LOW);
     delay(1000);
 }
 
@@ -111,34 +117,50 @@ void line_follow()
   {
     Serial.println("Detect Line on Left");
     turn_left();
-    delay(100);
   }
   else if (detect_right == HIGH)
   {
     Serial.println("Detect Line on Right");
     turn_right();
-    delay(100);
   }
     else if (detect_center == HIGH)
   {
     Serial.println("Detect Line on Center");
     move_forward();
-    delay(100);
   }
   
 }
 
 void junction_detect()
 {
+    
   if(Junction == 1)
   {
     stop_brake();
-    delay(1000);
     move_forward();
     delay(250);
     turn_left_junction();
-    delay(500);
-  }  
+  }
+  else if(Junction == 2 || Junction == 3 || Junction == 4)
+  {
+    stop_brake();
+    move_forward();
+    delay(250);
+    turn_right_junction();
+  }
+  else if(Junction == 5)
+  {
+    stop_brake();
+    move_forward();
+    delay(250);
+    turn_left_junction();
+    Junction = 0;
+  }
+  else
+  {
+    stop_brake();
+  }
+
 }
 
 void loop()
